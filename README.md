@@ -44,7 +44,7 @@ variety of Program Level Change (PLC) levels.  The library consists of:
 [Rel 6 PLC 9](https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/GC20-1810-9_VM370_Terminal_Users_Guide_Rel_6_PLC_9_Mar80.pdf)
 * GC20-1813 VM/370 Glossary and Master Index
 [Rel 6 PLC 1](https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/GC20-1813-5_VM370_Glossary_and_Master_Index_Rel_6_PLC_1_Sep79.pdf)
-* GC20-1816 VM.370 Remote Spooling Communication System (RSCS) User's Guide (https://bitsavers.org/pdf/ibm/370/VM/370/RSCS/GC20-1816-1_Remote_Spooling_Communications_Subsystem_Rel_4_Aug77.pdf)
+* GC20-1816 VM.370 Remote Spooling Communication System (RSCS) User's Guide [Rel 4 PLC 1](https://bitsavers.org/pdf/ibm/370/VM/370/RSCS/GC20-1816-1_Remote_Spooling_Communications_Subsystem_Rel_4_Aug77.pdf)
 * GC20-1818 VM/370 CMS Command and Macro Reference
 [Rel 6](https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/GC20-1818-2_IBM_Virtual_Machine_Facility_370_CMS_Command_and_Macro_Reference_Rel_6_Mar79.pdf)
 [Rel 6 PLC 1](https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/GC20-1818-2_IBM_Virtual_Machine_Facility_370_CMS_Command_and_Macro_Reference_Rel_6_PLC_1_Mar79.pdf)
@@ -72,10 +72,10 @@ variety of Program Level Change (PLC) levels.  The library consists of:
 * SY20-0886 VM/370 System Logic and Problem Determination Volume 1 Control Programs (CP) [](https://bitsavers.org/pdf/ibm/370/VM/370/plm/SY20-0886-1_VM370_Rel_6_Vol_1_Mar79.pdf)
 * SY20-0887 VM/370 System Logic and Problem Determination Volume 2 Conversational Monitor System (CMS)[](https://bitsavers.org/pdf/ibm/370/VM/370/plm/SY20-0887-1_VM370_Rel_6_Vol_2_Mar79.pdf)
 * SY20-0888 VM/370 System Logic and Problem Determination Volume 3 Remote Spooling Communication System (RSCS)[](https://bitsavers.org/pdf/ibm/370/VM/370/plm/SY20-0888-1_VM370_Rel_5_Vol_3_Dec77.pdf)
-* SY28-0773 OS/VS, DOS/VSE, VM/370 Error Reporting, Editing, and Printing (EREP) Program Logic[](https://bitsavers.org/pdf/ibm/370/VM/370/plm/
+* SY28-0773 OS/VS, DOS/VSE, VM/370 Error Reporting, Editing, and Printing (EREP) Program Logic
 * SY33-8041 OS/VS and VM/370 Assembler Program Logic
 
-There are some additional IBM manuals from earlier releases that may be of interest:
+There are some additional IBM manuals from other releases that may be of interest:
 * GC20-1803 VM/370 BASIC Language Reference Manual [Rel_1](https://bitsavers.org/pdf/ibm/370/VM/370/Release_1/GC20-1803-1_VM370_BASIC_Language_Reference_Manual_Rel_1_Apr73.pdf)
 * GC20-1805 VM/370 EDIT Guide [Rel 2](https://bitsavers.org/pdf/ibm/370/VM/370/Release_2/GC20-1805-3_VM370_EDIT_Guide_Rel_2_Mar75.pdf)
 * GC20-1812 VM/370 EXEC User's Guide [Rel 2](https://bitsavers.org/pdf/ibm/370/VM/370/Release_2/GC20-1812-1_VM370_EXEC_Users_Guide_Rel_2_Apr75.pdf)
