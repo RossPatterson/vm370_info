@@ -192,6 +192,10 @@ None.
 
 ## VMSHARE
 
+http://vm.marist.edu/~vmshare/
+
+http://vm.marist.edu/~vmshare/browse.cgi?fn=$AD&ft=MEMO
+
 ## Interesting websites
 
 * The "Wizard Of Odd CODEX"'s section on [IBM 360/370 Mainframe Architectures](https://codex.sjzoppi.com/ibm360-370:start)
