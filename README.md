@@ -32,7 +32,7 @@ Release notes for some of the post-IBM releases of VM/370 are stored on the web,
 are also included in the VM/370 Community Edition distribution ZIP files (_e.g._,
 VM370CE.V1.R1.2/readme-1_2.txt).
 
-* [Bob Abeles' ThreePack](documentation/release_notes/threepack_readme.txt), undated
+* [Bob Abeles' ThreePack](documentation/release_notes/threepack_readme.txt), dated 2000-11
 * ["VM370/R6 SixPack" version 1.2](documentation/release_notes/sixpack_1.2_readme.txt), dated 2010-10
 * ["VM370/R6 SixPack" version 1.3](documentation/release_notes/sixpack_1.3_readme.txt), dated sometime between 2010 and 2021
 * ["VM/370 Community Edition" version 1.0](documentation/release_notes/vmce_1.1.0_readme.txt), dated 2021-03-22
