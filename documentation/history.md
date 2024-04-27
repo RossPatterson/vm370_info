@@ -20,10 +20,15 @@ Everything started with the last publicly-available release of VM/370 from IBM.
 IBM packaged "Program Level Change" (PLC) updates for VM/370, but it isn't clear
 which R6 PLC was the starting point for all these systems.
 
-### Bob Abeles's Original 3-Pack System
-This is Bob Abeles's original distribution. Unlike the later systems which are
-distributed as "ready to IPL" DASD, this system is distributed as [AWS](???) tapes
-that need to be restored to 3330 packs. A couple of extra things to note:
+### Bob Abeles's Original System
+In 2000-11, Bob Abeles released a copy of the IBM VM/370 R6 distribution in
+its original form - two "tapes" created with the VM/370 _DASD Dump Restore_ (DDR)
+program, which need to be restored to 3330 disks.  This is exactly how a new IBM
+customer would have installed VM on their new System/370.  The original IBM
+distribution tapes are stored as [AWS](https://xmi.readthedocs.io/en/latest/virtualtape.html)
+tapes that Hercules and other S/370`emulators can process.
+
+A couple of extra things to note:
 
 1. Due an incompatibility between Hercules (and P/370 & P/390 systems) and DDR if
 you follow Bob's original instructions Hercules will loop at the end of each
