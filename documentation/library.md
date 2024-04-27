@@ -6,6 +6,7 @@ Most of the original VM/370 Release 6 documentation is available in PDF form fro
 bitsavers.org at https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/, albeit at a
 variety of Program Level Change (PLC) levels.  The library consists of:
 
+* GA22-7000 IBM System/370 Principles of Operation [March 1981](https://bitsavers.org/pdf/ibm/370/princOps/GA22-7000-7_IBM_System_370_Principles_of_Operation_8th_ed_198103.pdf)
 * GC20-1800 VM/370 Introduction
 [Rel 6 PLC 4](https://bitsavers.org/pdf/ibm/370/VM/370/Release_6/GC20-1800-9_VM370_Introduction_Rel_6_PLC_4_Aug79.pdf)
 * GC20-1801 VM/370 Planning and Sysgen Guide
