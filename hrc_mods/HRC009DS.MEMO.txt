@@ -1,0 +1,25 @@
+LOCAL MODIFICATION HRC009DS
+ 
+Update adds support for SET ABEND xxxxxxxx to CMS. This command
+set the name of a command to execute when a ABEND occurs. The command
+name is cleared when an ABEND occurs.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSABN
+DMSNUC
+DMSQRY
+DMSSET
+ 
+Affected Macros/Copy files :
+ 
+NUCON    MACRO
+ 
+Description of change:
+ 
+SET ABEND CATCHIT - set the ABEND command to CATCHIT. QUERY ABEND
+will display 'ABEND = CATCHIT'. When an ABEND occurs, the command
+CATCHIT will be placed on the STACK by DMSCAT to be executed after
+cleanup from the ABEND. The ABEND buffer is then cleared out to
+prevent recursion.
+ 

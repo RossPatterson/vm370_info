@@ -1,0 +1,103 @@
+LOCAL MODIFICATION HRC415DS
+ 
+This update implements support for loading the CMS Nucleus
+in high memory to alleviate storage constraints and allow
+the nucleus to grow past the 64K limit for the area between
+X'10000' and X'20000'. In the new high memory definition,
+that entire 64K memory area is made available for
+allocation as USER storage. The CMS Nucleus is moved to
+location X'F00000' and can grow as needed by future updates.
+The code from the CMSSEG segment is now part of the Nucleus
+code that loads at X'F00000'.
+ 
+This change is similar to what IBM did for CMS in VM/SP.
+ 
+Two system load procedures are provided. After the HRC415DS
+update is applied, the CMS system code may be loaded either
+below the user area as in the past, or high in the address
+space as it was starting in VM/SP. The load list used during
+system generation determines where the system code is
+located in memory.
+ 
+Affected Macros/Copy files :
+ 
+NUCON    HRC410DS  - Adds NUCHIGH flag to indicate high load.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSALP   HRC410DS  - Adds new CSECT to define the beginning of the system
+                     code area
+ 
+DMSBRD   HRC410DS  - Changes logic to produce return code 2 when a
+                     RDTERM specifies an address in the CMS Nucleus.
+                     The update checks the new Nucleus location if the
+                     nucleus is loaded in high memory.
+ 
+DMSFRE   HRC410DS  - When the Nucleus is loaded in high memory, DMSFRE
+                     will treat the area between X'10000' and X'20000'
+                     as DMSFREE TYPE=USER storage.
+ 
+DMSINI   HRC410DS  - Initializes CMS during IPL by loading the nucleus
+                     into storage. Depending on which CMSLOAD file is
+                     specified at systen generation, the code will be
+                     loaded low or high in memory.
+ 
+DMSINS   HRC410DS  - If CMS is loaded in high memory, the CMSSEG
+                     SEGMENT code is included in the Nucleus. This update
+                     sets flags and pointers to tell the rest of
+                     CMS where the CMSSEG code resides.
+ 
+DMSNUC   HRC999DS  - Forces re-assembly to pick up changes in the NUCON MACRO file.
+ 
+DMSOME   HRC410DS  - Adds new CSECT to define the end of the system
+                     code area
+ 
+DMSRES   HRC410SQ  - Adds sequence numbers for DMSRES ASSEMBLE so that updates
+                     based on sequence numbers can be supplied.
+ 
+DMSRES   HRC410DS  - The RESLIB command in the VM/370 Sixpack had logic that
+                     depended on where CMS was loaded into memory. This update
+                     changes a test sequence so that RESLIB can work when CMS
+                     is loaded into high memory.
+ 
+New assembler source:
+ 
+DMSALP   ASSEMBLE
+DMSOME   ASSEMBLE
+ 
+Description of change:
+ 
+Changes in system memory layout:
+ 
+            Standard CMS memory map               High CMS memory map
+       0 +-----------------------------+    +-----------------------------+
+         | System code                 |    | System code                 |
+    5D00 +-----------------------------+    +-----------------------------+
+         | Free storage                |    | Free storage                |
+    E000 +-----------------------------+    +-----------------------------+
+         | CMS Transient area          |    | CMS Transient area          |
+   10000 +-----------------------------+    +-----------------------------+
+         |                             |    |                             |
+         | CMS system code             |    | Free storage (type USER)    |
+         |                             |    |                             |
+         |                             |    |                             |
+   20000 +-----------------------------+    +-----------------------------+
+         | CMS User program area       |    | CMS User program area       |
+         / --------------------------  /    / --------------------------- /
+         | Free Storage                |    | Free storage                |
+         |                             |    |                             |
+         | End of 15M Virtual machine  |    | End of 15M Virtual Machine- |
+  F00000 +-----------------------------+    +-----------------------------+
+         | CMSSEG saved segment        |    | Free storage                |
+  F10000 +-----------------------------+    +                             |
+         | CMSDOS saved segment        |    | CMSDOS saved segment        |
+  F20000 +-----------------------------+    +---------------------------- +
+         |                             |    |                             |
+         | Free storage /              |    | Free storage /              |
+         |      other saved segments   |    |      other saved segments   |
+  F80000 +---------------------------- +    +-----------------------------+
+         |                             |    |                             |
+         | Free storage /              |    | CMS System code             |
+         /      other saved segments   /    /    including contents       /
+         |                             |    |      previously in CMSSEG   |
+  FFFFFF +-----------------------------+    +-----------------------------+

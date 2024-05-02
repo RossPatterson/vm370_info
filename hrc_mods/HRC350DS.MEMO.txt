@@ -1,0 +1,18 @@
+Update adds FIFO, LIFO, and DISCARD options to CP command.
+ 
+Robert O'Hara, Redmond Washington, June 2009
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSCPF
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description :
+Syntax of CP command is now:
+CP [FIFO|LIFO|DISCARD] cp command...
+ 
+Additional messages:
+None

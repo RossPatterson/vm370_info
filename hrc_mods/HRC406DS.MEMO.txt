@@ -1,0 +1,71 @@
+This update implements support for the CMS multilevel stack
+facility with the commands: MAKEBUF, DROPBUF, and SENTRIES.
+These commands enable REXX programs to partition off a segment
+of CMS stack space for their own use. The stack space segemnt
+can be easily removed during REXX program termination so
+that the stacked information belonging to a caller was
+restored the the state expected by that caller. This cleanup
+facilitated successful error recovery for REXX programs.
+ 
+The syntax and usage description of these commands can
+be found in any set of VM manuals starting with VM/SP.
+ 
+Affected Macros/Copy files :
+ 
+NUCON    HRC406DS  - Adds control block anchors for the
+                     current state of the program stack
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSBUF   HRC406DS - dummy update to add new assemble file
+ 
+DMSCAT   HRC406DS - changes the ATTN function to use the multi-level
+                    stack control block structure when stacking lines.
+                    ATTN is used by REXX queue and push operations.
+ 
+DMSCIT   HRC406DS - changes the virtual console interrupt processor to
+                    use the new stack control block structure to stack
+                    incoming data from the console. Modifies the DESBUF
+                    command to issue a DROPBUF 0 to clear out all
+                    stacked messages.
+ 
+DMSCRD   HRC406DS - satisfy a console read with stacked data from the
+                    new stack control block structure
+ 
+DMSEXT   HRC406DS - supply the count of stacked lines to the &READFLAG
+                    variable in the original EXEC language processor
+ 
+DMSFNC   HRC406DS - Adds the MAKEBUF, DROPBUF, and SENTRIES
+                    commands to the table of in memory commands
+ 
+DMSNUC   HRC406DS - Forces re-assembly to pick up changes in the NUCON MACRO fil
+                    NUCON MACRO file
+ 
+New assembler source:
+ 
+DMSBUF   ASSEMBLE  - implements the MAKEBUF, DROPBUF, and SENTRIES commands
+ 
+Description of change:
+ 
+This update implements the infrastructure to support the MAKEBUF,
+DROPBUF, and SENTRIES command used by REXX. Changes to implement
+the restructured stack are made in the ATTN function, and to
+the console I/O handler.
+ 
+To build the classic EXEC processor MODULE file:
+ 
+   EXEC CMSGEND DMSEXT
+ 
+The CMSLOAD EXEC fileis updated. This file names all the parts to be
+included in the CMS Nucleus. EDIT the CMSLOAD EXEC file and
+insert lines to include new file DMSBUF TEXT.
+*
+   A line is inserted for new routine DMSBUF just after
+   the existing line naming DMSTIO. That part of the
+   CMSLOAD EXEC file will now look like this:
+ 
+&1 &2 &3 DMSZNR
+&1 &2 &3 DMSTIO
+&1 &2 &3 DMSBUF   <------ Add this line here
+&1 &2 &3 DMSCSF
+&1 &2 &3 DMSZIT

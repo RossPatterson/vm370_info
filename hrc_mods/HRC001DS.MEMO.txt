@@ -1,0 +1,15 @@
+LOCAL MODIFICATION HRC001DS
+ 
+Support for 'QUERY CMSLEVEL'
+ 
+Affected Modules :
+ 
+DMSQRY ASSEMBLE
+ 
+Description :
+Addition to QUERY command to display the current CMS verion
+ 
+   QUERY CMSLEVEL
+ 
+Responds:
+   VM/370 RELEASE 6, PLC 629, HRC V01

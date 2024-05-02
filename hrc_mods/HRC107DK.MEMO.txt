@@ -1,0 +1,12 @@
+LOCAL MODIFICATION HRC107DK
+ 
+Add QUERY USERID command
+ 
+Affected Modules:
+ 
+DMKCFC ASSEMBLE
+DMKCQY ASSEMBLE
+ 
+Description:
+Return the userid of the virtual machine issuing the command as read straight
+out of the VMBLOK.

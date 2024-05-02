@@ -1,0 +1,22 @@
+LOCAL MODIFICATION HRC451DK
+ 
+Updates the CP DISPLAY command to show mixed case alphabetic
+characters in storage.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMKDMP
+ 
+Affected Macros/Copy files :
+ 
+none
+ 
+Description :
+ 
+Responses from the DISPLAY and DCP commands showed lowercase
+alphabetics as dot characters in the command responses.
+Modern systems use more mixed case data, so it is useful to see
+it in these command responses.
+ 
+Additional messages:
+None.

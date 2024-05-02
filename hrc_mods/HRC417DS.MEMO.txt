@@ -1,0 +1,26 @@
+LOCAL MODIFICATION HRC417DS
+ 
+This update adds the ability to read directly from the virtual
+console and bypass any lines already in the stack.
+ 
+Affected Macros/Copy files :
+ 
+RDTERM   HRC417DS - Adds the TYPE=DIRECT parameter to the
+                    CMS RDTERM MACRO
+ 
+NUCON    HRC417DS - Adds the RDTDRCT flag bit as a parameter passes
+                    between DMSCIT and DMSCRD
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSCIT     Processing logic to bypass any stacked lines with RDTERM
+DMSCRD     Processing logic to bypass any stacked lines with RDTERM
+ 
+Description of change:
+ 
+RDTERM TYPE=DIRECT causes DMSCRD and CDMSCIT to directly read a line
+from the virtual console and bypass any lines already in the CMS
+stack. It is added to support REXX interactive tracing mode, where
+REXX statements can be issued to debug a program being traced.
+Any lines stacked by the program being traced are not disturbed whe
+a REXX interactive trace command is issued.

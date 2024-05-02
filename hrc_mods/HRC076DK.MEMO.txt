@@ -1,0 +1,19 @@
+LOCAL MODIFICATION HRC076DK
+ 
+Support the SHUTDOWN REIPL command
+ 
+ 
+DMKCKP   ASSEMBLE
+ 
+Description :
+Some support for SHUTDOWN REIPL was introduced by whomever wrote
+HRC002DK, but the support was never completed (the REIPL bit was set
+but no action was taken).  This modification completes the process.
+A true IPL simulation is performed.  After the shutdown warm start
+data is saved, the actual IPL record is loaded from the original IPL
+device, and then the IPL PSW is loaded and execution begins with
+the actual CP IPL sequence to restart the system.
+ 
+If any errors are encountered while trying to load the IPL record,
+the system will instead halt with a disabled wait code 8, which
+represents the last good status:  warm start data saved.

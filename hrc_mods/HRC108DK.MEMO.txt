@@ -1,0 +1,54 @@
+LOCAL MODIFICATION HRC108DK
+ 
+Implement SYSID (System identification)
+ 
+Affected Modules :
+ 
+DMKHRC MACLIB   (GRTBLOK MACRO and SYSLOCS MACRO updated, SYSID MACRO added)
+DMKCPI ASSEMBLE
+DMKCQY ASSEMBLE
+DMKGRT ASSEMBLE
+DMKSEP ASSEMBLE
+DMKSYM ASSEMBLE
+DMKSYS ASSEMBLE
+ 
+Description :
+The SYSID macro has been added making it's use possible to define one or more
+system identification names in DMKSYS.
+ 
+DMKCPI has been modified to parse the list of system identification names
+defined in DMKSYS and select one which matches the CPU being ipled.  When the
+system identification name has been selected, it is placed at DMKSYSID and a
+call is made to DMKGRTID.
+ 
+DMKCQY has been modified to include the system identification name from
+DMKSYSID in the output of QUERY USERID.
+ 
+DMKGRT has been modified to include a new subroutine DMKGRTID which is called
+from DMKCPI after the applicable system identification name has been determied.
+DMKGRTID copies the system identification name from DMKSYSID into the 3270
+status areas which are defined in GRTBLOKs DMKGRTB, DMKGRWTB, DMKGRUTB and
+DMKGRVTB which each contain data applicable to different models of 3270
+terminals. This means that the system identification name is displayed on the
+bottom right of 3270 displays, except in the following cases - when a NOT
+ACCEPTED status message is being displayed and when the DMKBOX logo is being
+displayed on a 3278 model 2A.  Note that at shutdown time, the GRTBLOKs are
+reloaded from the sysres device but DMKCPI and therefore DMKGRTID is not called
+and this results in the system identification name being blanked on the console
+terminal at the time the shutdown messages are displayed.
+ 
+DMKSEP has been modified to include the system identification name on the
+print seperator pages.  It has not been included on punch seperators as there
+is not enough room.
+ 
+DMKSYM has been modified to include a symbol for DMKSYSID so that it can be
+found easily in system dumps and by the LOCATE command if HRC104DK is applied.
+ 
+The GRTBLOK macro has been updated to label the locations in the various 3270
+status messages where the system identification should be inserted.
+ 
+The SYSLOCS macro has been update to warn if SYSID has not been coded in DMKSYS
+and to supply a default (blank) system identification name to avoid unresolved
+external references if this is the case. For this reason, DMKSYS ASSEMBLE must
+be reassembled when this update is installed, even if a SYSID macro is not to
+be used immediately.

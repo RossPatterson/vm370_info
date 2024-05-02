@@ -1,0 +1,18 @@
+LOCAL MODIFICATION HRC101DS
+ 
+Adds the STACK option to the QUERY command. This is the first of
+several changes to add this option to commands.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSQRY
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description of change:
+ADDS ( STACK (FIFO|LIFO)
+       FIFO
+       LIFO
+to CMS QUERY functions. (Note: QUERY CP xxx has not been added yet)

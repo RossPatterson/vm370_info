@@ -1,0 +1,128 @@
+LOCAL MODIFICATION HRC400DS
+ 
+This update implements support for Nucleus Extensions
+and Subcommand processing.
+ 
+Affected Macros/Copy files :
+ 
+NUCEXT     (New) A compatible implementation of the IBM NUCEXT MACRO
+ 
+SUBCOM     (New) A compatible implementation of the IBM SUBCOM MACRO
+ 
+SCBLOCK    (New) A compatible implementation of the IBM SCBLOCK MACRO
+ 
+SHVBLOCK   (New) A compatible implementation of the IBM SHVBLOVK MACRO
+ 
+NUCON      Add control block anchors, counters, and address
+           constants for communications between the support code
+           elements for NUCEXTs and SUBCOMs
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSABN     Accounts for any NUCLEUS storage left allocated by a
+           Nucleus Extension after an ABEND
+ 
+DMSFNC     Adds the NUCEXT and SUBCOM entry point names and addresses
+           called by the NUCEXT and SUBCOM MACRO expansions
+ 
+DMSINS     Establishes a 'CMS' subcommand environment during CMS
+           system initialization. Calling the subcommand locates a
+           desired VM command using the same search rules as if the
+           command had been issued at the "Ready;" prompt.
+ 
+DMSINT     Deletes any subcommand which was NOT established with the
+           SYSTEM=YES operand, before returning to the "Ready;" prompt.
+           Removes code for building the EPLIST, as that is now done by
+           the ASCANN routine. Reference the system UPPERCASE translate
+           table address using field NUCUPPER rather than hard coding
+           the DMSCRDUP address constant.
+ 
+DMSITS     Supports using 'DC AL4(1)' in place of 'DC AL4(*+4)' after an
+           SVC 202. This is compatible with later CMS versions, and removes
+           an obstacle to making relocatable, adcon free code.
+ 
+           Adds support to look for established Nucleus Extensions before
+           looking for any other type of command for calltypes X'00' and X'01'.
+ 
+           Adds support for the following calltype for SVC202:
+                X'02' - The call is made to a Subcommand entry point.
+                X'03' - The call bypasses the search for a Nucleus Extension
+                        when an Eplist is present.
+                X'04' - The call bypasses the search for a Nucleus Extension
+                        when no Eplist is present.
+ 
+DMSNUC     Forces re-assembly to pick up changes in the NUCON MACRO file.
+ 
+DMSSCN     Builds an EPLIST for an ASCANN call. This code was relocated here
+           from DMSINT for use by additional routines. This design is compatible
+           with later CMS versions.
+ 
+DMSCSF     (New) Implements the CMS subcommand environment for REXX address CMS
+DMSNXD     (New) Implements the NUCXDROP command
+DMSNXM     (New) Implements the NUCXMAP command
+DMSSNX     (New) Implements the Nucleus Extension and Subcommand processing
+                 for the NUCEXT and SUBCOM assembler macros
+ 
+Description of change:
+ 
+This update implements support for certain Nucleus Extensions
+and CMS Subcommands. A general NUCXLOAD command is NOT
+included because VM/370 does not currently support
+relocatable MODULEs. Self loading Nucleus Extentions are
+fully supported. Such a program allocates memory and copies
+part of itself into it. The copied portions contain no
+address constants, and can be relocated in memory successfully.
+Examples of such programs includes the tape utility, BLOCKTAP,
+and programs with the structure of a REXX function package.
+ 
+The primary requirement for this support is to extend the REXX
+capabilities currently being added to BREXX on the Sixpack.
+ 
+A CMS subcommand is added for use by REXX with address 'CMS'.
+It uses command line name resolution to find commands using
+the standard rules for implied EXEC and the system abbreviation
+table.
+ 
+Programs can add their own subcommand entry points and
+REXX EXECs will call them with address 'SOMECMD'.
+ 
+The generalized SUBCOM facility will be used to implement
+an EXECCOMM subcommand in BREXX, and an EXECIO utility command.
+ 
+ 
+The syntax and usage description of these commands and
+macros are found in any set of VM manuals starting with VM/SP.
+ 
+Use these steps to rebuild the command module files:
+ 
+   Build any any command module files.
+ 
+   LOAD DMSNXD ( CLEAR ORIGIN TRANS
+   GENMOD NUCXDROP MODULE A2
+ 
+   LOAD DMSNXM ( CLEAR ORIGIN TRANS
+   GENMOD NUCXMAP MODULE A2
+ 
+These are the changes for the CMSLOAD EXEC file. This file names all
+all the parts to be included in the CMS Nucleus. EDIT the CMSLOAD EXEC
+file and insert lines to include new files DMSSNX TEXT and DMSCSF TEXT.
+ 
+   Insert a line for new routine DMSSNX just after
+   the existing line naming DMSDBG. That part of the
+   CMSLOAD EXEC file will now look like this:
+ 
+&CONTROL OFF
+&1 &2 &3 DMKLD00E LOADER
+&1 &2 &3 DMSNUC
+&1 &2 &3 DMSDBG
+&1 &2 &3 DMSSNX   <------ Add this line here
+&1 &2 &3 DMSZNR
+*
+   Insert a line for new routine DMSCSF just after
+   the existing line naming DMSTIO. That part of the
+   CMSLOAD EXEC file will now look like this:
+ 
+&1 &2 &3 DMSZNR
+&1 &2 &3 DMSTIO
+&1 &2 &3 DMSCSF   <------ Add this line here
+&1 &2 &3 DMSZIT

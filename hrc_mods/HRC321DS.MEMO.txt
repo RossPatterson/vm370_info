@@ -1,0 +1,19 @@
+Update adds LIFO and FIFO options to LISTFILE.
+Also changed all messages and headers to mixed case.
+ 
+Robert O'Hara, Redmond Washington, August 2008
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSLST
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description :
+FIFO option stacks output of command FIFO.
+LIFO option stacks output of command LIFO.
+ 
+Additional messages:
+'FIFO' and 'LIFO' are conflicting options

@@ -1,0 +1,19 @@
+LOCAL MODIFICATION HRC003DS
+ 
+Update to QUERY DISK command to match VM/SP.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSQRY
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description :
+Changes to CMS QUERY DISK command to return results like:
+ 
+LABEL  CUU M  STAT  CYL TYPE BLKSIZE   FILES  BLKS USED-(%) BLKS LEFT BLK TOTAL
+LCLCMS 093 A   R/W   40 3350  800        185       2443-11      20357     22800
+ 
+Default is Q DISK * now.

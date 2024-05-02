@@ -1,0 +1,11 @@
+LOCAL MODIFICATION HRC009DK
+ 
+Display real VOLID for TDSK disks, rather than TEMP
+ 
+Affected Modules :
+ 
+DMKCQG ASSEMBLE
+ 
+Description :
+QUERY DA displayed: DASD 001 3380 (TEMP) R/W 0001 CYL
+               Now: DASD 001 3350 VM50-2 R/W 0001 CYL

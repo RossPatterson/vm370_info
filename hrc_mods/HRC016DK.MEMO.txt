@@ -1,0 +1,11 @@
+LOCAL MODIFICATION HRC016DK
+ 
+Support for AUTOLOG1 through AUTOLOG9
+ 
+Affected Modules :
+ 
+DMKCPI   ASSEMBLE
+ 
+Description :
+Changes to DMKCPI CP program to look for and AUTOLOG user ids
+AUTOLOG1 through AUTOLOG9, no message is generated for used ids.

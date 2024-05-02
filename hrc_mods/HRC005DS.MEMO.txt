@@ -1,0 +1,25 @@
+LOCAL MODIFICATION HRC005DS
+ 
+Update enhances LISTFILE command adding FULLDATE, SHORTDATE and
+ISODATE options.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSLST
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description :
+Adding any of these options implies the DATE option. SHORTDATE is the
+default.
+Additional messages:
+ 
+SHORTDATE and ISODATE are conflicting options
+SHORTDATE and FULLDATE are conflicting options
+FULLDATE and ISODATE are conflicting options
+ 
+SHORTDATE:  mm/dd/yy
+FULLDATE:   mm/dd/ccyy
+ISODATE:    ccyy-mm-dd

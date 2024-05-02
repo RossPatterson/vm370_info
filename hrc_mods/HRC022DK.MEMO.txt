@@ -1,0 +1,30 @@
+LOCAL MODIFICATION HRC022DK
+ 
+Enhanced SPOOL Transfer command
+ 
+Support message OUTPUT suppression.
+ 
+DMKCSV   ASSEMBLE
+ 
+Description :
+ 
+TO TRANSFER A SPOOL FILE TO ANOTHER USER AND/OR
+ANOTHER TYPE OF UNIT RECORD DEVICE WITHOUT PROCESSING
+BY THE VIRTUAL MACHINE. SPOOLID MAY BE ID NUMBER,
+CLASS, OR THE KEYWORD ALL. ONLY PRT FILES WILL BE
+TRANSFERRED TO A PRINTER, AND ONLY PUN FILES TO A
+PUNCH. DMP (SYSTEM DUMP) FILES AND RDR FILES MAY
+ONLY BE TRANSFERRED TO ANOTHER READER.
+ 
+ 
++----------+--------------------------------------------+
+| TRANSFER | <USERID> <PRT> SPOOLID < TO > USERID <PRT> |
+| TRAN     | <SYSTEM> <PCH> CLASS A <FROM> ALL    <PCH> |
+|          |          <RDR> ALL                   <RDR> |
+|          |           ---                         ---  |
++----------+--------------------------------------------+
+ 
+ 
+ 
+ 
+ 

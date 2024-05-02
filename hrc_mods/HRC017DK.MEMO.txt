@@ -1,0 +1,10 @@
+LOCAL MODIFICATION HRC017DK
+ 
+CP message cleanup
+ 
+Affected Modules :
+ 
+DMKMSG   ASSEMBLE
+ 
+Description :
+Removes Trailer and ALARM for MSGNOH messages.

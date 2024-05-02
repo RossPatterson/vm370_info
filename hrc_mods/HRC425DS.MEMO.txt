@@ -1,0 +1,19 @@
+LOCAL MODIFICATION HRC425DS
+ 
+Changed to add the SET CMSTYPE and QUERY CMSTYPE commands for use by
+REXX programs.
+ 
+Affected files:
+ 
+ 
+DMSSET   ASSEMBLE  Implements the SET CMSTYPE HT|RT command.
+ 
+DMSQRY   ASSEMBLE  Implements the QUERY CMSTYPE command.
+ 
+ 
+Description:
+ 
+The QUERY and SET CMSTYPE commands are used in REXX programs in the same
+way as the &STACK HT and &STACK RT statements are used in the original
+EXEC language. They allow other commands to be issued with their console
+output suppressed.

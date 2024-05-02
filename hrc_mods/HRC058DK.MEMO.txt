@@ -1,0 +1,11 @@
+LOCAL MODIFICATION HRC058DK
+ 
+Diagnose X'58' Full screen support initial release.
+ 
+HDKD58   ASSEMBLE
+DMKGRF   ASSEMBLE
+DMKVCN   ASSEMBLE
+ 
+Description :
+Support for Diagnose x'58' full screen CCWs similar to the IBM
+specification provided in later releases of VM.

@@ -1,0 +1,80 @@
+LOCAL MODIFICATION HRC309DS
+ 
+This update adds extended parameter list (EPLIST) support to CMS.  An extended
+parameter list is the untranslated, untokenized command line associated with
+the invoked command or EXEC procedure.  This is done in a manner compatible
+with VM/SP and later releases from IBM.
+ 
+In addition, the EXEC processor is modified to supply an extended parameter
+list to programs it invokes.  This is done in a manner as compatible as
+possile to EXEC 2 in VM/SP and later.
+ 
+Robert O'Hara, Redmond Washington, November 2008 and February 2010
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSERS (ERASE command)
+DMSEXT (EXEC processor)
+DMSFLD (FILEDEF command)
+DMSINT (terminal read loop)
+DMSLDR (START command)
+DMSLST (LISTFILE command)
+DMSRNM (RENAME command)
+DMSSTT (STATE command)
+ 
+Affected Macros/Copy files :
+ 
+EPLIST MACRO  (new macro)
+ 
+LDRST         added save area for extended parameter list.
+NUCON         added NUCPLIST to match current z/VM.
+ 
+Description of change:
+ 
+When a CMS command or user program is invoked by typing it at the console, or
+from an EXEC procedure, an extended plist (EPLIST) is passed to the command via
+R0 in addition to the traditional tokenized plist passed via R1.  The high
+order byte of R1 is set thusly:
+   x'0B'   the command is being invoked from DMSINT, when a user types a
+           command at the console.  This used to be x'0C', but has been changed
+           to be consistent with VM/SP and later versions of VM.
+   x'0D'   the command is being invoked from the EXEC processor, and either
+           &CONTROL ALL or &CONTROL CMS is in effect.  While an extended plist
+           *is* supplied, the flag byte is the same as that of EXEC in VM/370
+           without these modifications, where no eplist is available.  Thus in
+           this case the flag byte cannot be used to detect the presence of the
+           extended plist.
+   x'01'   the command is being invoked from the EXEC processor, and
+           &CONTROL NOMSG is in effect.  This used to be x'0E', but has been
+           changed to be consistent with EXEC 2 and REXX on VM/SP and later
+           versions of VM.
+ 
+These routines are changed as described:
+   DMSERS   checks the high order byte of R1 to determine whether or not to
+            emit any messages.  All messages are now displayed in mixed case.
+   DMSEXT   passes an extended parameter list to any CMS commands or programs
+            it invokes.  Any variables in the EPLIST are substituted with the
+            corresponding EXEC variable values.  Multiple blanks between words
+            are removed.  This extended parameter list is not stored in
+            CMNDLINE.  All error messages are now displayed in mixed case.
+            For commands invoked via the &ERROR instruction, an extended plist
+            is provided, but it has been tokenized (all words truncated at 8
+            characters).
+   DMSINT   stores the untranslated, untokenized command line in CMNDLINE,
+            whereas previously the untokenized command line had been translated
+            to upper case.  In this command line multiple blanks are preserved,
+            case is preservered, and words may exceed 8 bytes in length.
+            DMSINT also constructs an EPLIST, stores this in NUCON, and passes
+            it to the CMS command it invokes via R0.
+   DMSFLD   checks the high order byte of R1 to determine whether or not to
+            emit any messages.  All messages are now displayed in mixed case.
+            Also, a "(" without any following options is ignored.  This fixes
+            a problem in PLI MODULE.
+   DMSLST   checks the high order byte of R1 to determine whether or not to
+            emit any messages.  All messages are now displayed in mixed case.
+   DMSLDR   modifies the extended parameter list it receives from either
+            DMSINT or DMSEXT to properly skip over the START command.
+   DMSRNM   checks the high order byte of R1 to determine whether or not to
+            emit any messages.  All messages are now displayed in mixed case.
+   DMSSTT   checks the high order byte of R1 to determine whether or not to
+            emit any messages.  All messages are now displayed in mixed case.

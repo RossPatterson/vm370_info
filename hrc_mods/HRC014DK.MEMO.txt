@@ -1,0 +1,16 @@
+LOCAL MODIFICATION HRC014DK
+ 
+LNKNOPAS Directory Option
+ 
+Affected Modules :
+ 
+DMKDIR   ASSEMBLE
+DMKLNK   ASSEMBLE
+DMKLOG   ASSEMBLE
+UDIRECT  COPY
+VMBLOK   COPY
+ 
+Description :
+Changes to various CP programs and COPY files to add support
+for LNKNOPAS option in the DIRECTORY. Users with this option
+bypass PASSWORD checking for minidisk links.

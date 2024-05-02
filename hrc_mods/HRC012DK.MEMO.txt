@@ -1,0 +1,24 @@
+LOCAL MODIFICATION HRC012DK
+ 
+Add D/T3380 support for DDR
+ 
+Affected Modules :
+ 
+DMKDDR   ASSEMBLE
+ 
+Description :
+ 
+DDR enhancements and 3380 support for VM/370 R6
+Contains enhancements to DDR like VM/SP. New
+commands:  SYSPRINT CONS - routes print out to console
+ 
+When running under VM - input or output dasd is query for the
+number of cyls and the IOB is updated to reflex new max. This
+prevents the CMDREJ when a command specifies all. For example,
+DUMP ALL for a 3 cyl 3350 with just dump cyls 0 - 2.
+The message:
+DUMPING   MNT191
+has been changed to DUMPING   MNT191 IN(191) OUT(181) ALT(182)
+3380 support is dynamic, that is the size of the unit is
+gotten from the device via SENSE ID CCW or from VM if it is
+a minidisk.

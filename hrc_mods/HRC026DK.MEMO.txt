@@ -1,0 +1,19 @@
+LOCAL MODIFICATION HRC026DK
+ 
+Reclassify some commands privileges
+ 
+DMKCFC   ASSEMBLE
+ 
+Description :
+ 
+Following commands moved to VM CLASS C.
+ 
+CPASSIST
+FAVORED
+JOURNAL
+LOCK
+PRIORITY
+RESERVE
+SASSIST
+SAVESYS
+UNLOCK

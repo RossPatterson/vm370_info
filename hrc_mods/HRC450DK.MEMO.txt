@@ -1,0 +1,22 @@
+LOCAL MODIFICATION HRC450DK
+ 
+Support APL character set for 3278 emulators
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMKGRF
+DMKTBM
+ 
+Affected Macros/Copy files :
+ 
+none
+ 
+Description :
+ 
+VM/370 had support for 3277 APL and TEXT character sets, but most
+emulation programs are based on 3278 terminals now. This change
+allows modern emulators to exploit the APL 360 port to CMS, which
+is available on the h390-vm download area.
+ 
+Additional messages:
+None.

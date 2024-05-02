@@ -1,0 +1,59 @@
+LOCAL MODIFICATION HRC371DS
+ 
+This modification integrates Regina REXX into CMS as an alternate EXEC
+interpreter.  This adds 440K of code (!) to CMS high storage.  You can
+remove these from memory (and disable implicit execution of REXX
+programs) by issuing these commands:
+   RESLIB DELETE DMSREX
+   RESLIB DELETE GCCLIB
+ 
+The changes include:
+ 
+1. Loader Tables allocation
+ 
+Change CMS initialization so that if the virtual machine size is 4MB
+or larger, 64 pages are allocated for the loader tables instead of
+only 3 pages.
+ 
+ 
+2. SYSPROF EXEC
+ 
+Change CMS initialization processing to execute SYSPROF EXEC (if it
+exists) before executing PROFILE EXEC A (if it exists).  If either
+"ACCESS ( NOPROF" or "ACCESS NODISK" were entered as the first command
+after the IPL command, then neither SYSPROF EXEC or PROFILE EXEC are
+executed.  Eventually we may want to first release the A disk, to
+ensure that SYSPROF EXEC S is executed, and not one on the A disk.
+ 
+ 
+3. Implicit invocatation of a REXX interpreter
+ 
+The RESLIB command is used to load Regina REXX and the GCC runtime
+library (on which it depends) into high memory.
+ 
+If an EXEC is a REXX program (i.e. it begins with "/*") then the DMSREX
+command is invoked to interpret it.
+ 
+3. CMSLEVEL message
+ 
+The CMSLEVEL message is updated to relflect that this is the "SixPack".
+ 
+ 
+Robert O'Hara, Redmond Washington, June 2010
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSEXC (EXEC processing)
+DMSINS (CMS initialization)
+DMSQRY (QUERY command)
+ 
+Affected Macros/Copy files :
+none
+ 
+Description :
+As above.  QUERY CMSLEVEL now emits:
+ 
+VM/370 Release 6, PLC 629, "SixPack" ver 1.1
+ 
+Additional messages:
+none

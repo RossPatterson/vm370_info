@@ -1,0 +1,28 @@
+LOCAL MODIFICATION HRC400DS
+ 
+This update implements setting the Halt Immediate,
+Trace Start and Trace End bits in NUCON when the
+HI, TS, and TE immediate commands are issued. The bits are
+interogated by the BREXX interpretor when it starts and at
+REXX statement boundaries.
+ 
+The syntax and usage description of these commands can
+be found in any set of VM manuals starting with VM/SP.
+ 
+Affected Macros/Copy files :
+ 
+NUCON    - Add the EXECHALT and EXECTRAC bit
+           definitions in the EXECSTAT byte
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSCIT     Adds the new immediate commands to the
+           CMS console device handler
+ 
+DMSNUC     Forces re-assembly to pick up changes
+           in the NUCON MACRO file.
+ 
+Description of change:
+ 
+Tests for the new immediate commands are added to DMSCIT. They
+set bits in Page 0 which are tested by the REXX interpretor.

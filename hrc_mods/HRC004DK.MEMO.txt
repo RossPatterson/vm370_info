@@ -1,0 +1,14 @@
+LOCAL MODIFICATION HRC004DK - WAS ISW00003
+ 
+Support for Systems with 4K Storage Key feature
+ 
+Affected Modules :
+ 
+DMKCLK ASSEMBLE
+DMKPSA ASSEMBLE (Via PSA MACRO)
+DMKAPI ASSEMBLE
+DMKCPI ASSEMBLE
+PSA MACRO
+ 
+Description :
+Set Bit 7 of CR0 wherever possible.

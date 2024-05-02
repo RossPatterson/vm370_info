@@ -1,0 +1,17 @@
+LOCAL MODIFICATION HRC001DK - WAS CNY16
+ 
+Support for 'RECALL' or 'RETRIEVE' to the SET PFXX command
+ 
+Affected Modules :
+ 
+DMKGRF ASSEMBLE
+VMBLOK MACRO
+ 
+Description :
+Several commands can be retrieve in a round robin sequence once
+a PF key has been set to either RECALL or RETRIEVE:
+ 
+   CP SET PF12 RETRIEVE
+ 
+Each time PF12 is press, the prior command will be recalled to
+be monified and reissued

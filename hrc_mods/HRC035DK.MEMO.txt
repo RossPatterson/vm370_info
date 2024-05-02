@@ -1,0 +1,9 @@
+LOCAL MODIFICATION HRC035DK
+ 
+FRE013 ABEND - FREE TRAP
+ 
+DMKCPI   ASSEMBLE
+DMKFRE   ASSEMBLE
+ 
+Description :
+Support for FRE013 trap added via the OPTIONS COPY file.

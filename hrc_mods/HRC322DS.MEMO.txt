@@ -1,0 +1,20 @@
+Update completes initial implementation of STACK option which was started in
+HRC101DS.  Also changed all messages and headers to mixed case.
+ 
+Robert O'Hara, Redmond Washington, September 2008
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSQRY
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description :
+QUERY operands... ([STACK [FIFO | LIFO]] [FIFO] [LIFO]
+now executes as expected.  This includes any output from CP when the operand
+is a CP setting, e.g. QUERY TIME.
+ 
+Additional messages:
+None.

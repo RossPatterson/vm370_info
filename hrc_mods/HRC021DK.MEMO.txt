@@ -1,0 +1,12 @@
+LOCAL MODIFICATION HRC021DK
+ 
+Support Prefix Period console output suppression
+ 
+DMKCFC   ASSEMBLE
+DMKCFM   ASSEMBLE
+DMKQCN   ASSEMBLE
+VMBLOK   COPY
+ 
+Description :
+If command is preceeded by a . (period) then results are suppressed
+but return code is presented.

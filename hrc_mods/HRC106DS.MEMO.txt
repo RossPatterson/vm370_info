@@ -1,0 +1,27 @@
+LOCAL MODIFICATION HRC106DS
+ 
+Accept FORM=E on FS macros for greater VM/SP compatibility
+ 
+Description:
+ 
+This update enhances the following macros to accept FORM=E as an argument as may
+be encountered when building software designed for versions of VM later than
+VM/370 release 6. This avoids assembly failures when assembling source which
+makes use of FORM=E. No additional functionality is included, when FORM=E is
+specified except that an MNOTE warning is issued to indicate that a macro with
+a FORM=E argument was encountered.
+ 
+Files affected:
+ 
+FSCB    MACRO
+FSOPEN  MACRO
+FSPOINT MACRO
+FSSTATE MACRO
+FSREAD  MACRO
+FSWRITE MACRO
+ 
+Installation:
+ 
+Rebuild CMSLIB MACLIB.
+ 
+No reassembly is required nor is it necessary to regenerate any modules.

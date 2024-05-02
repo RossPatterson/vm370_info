@@ -1,0 +1,30 @@
+LOCAL MODIFICATION HRC402DS
+ 
+This update simplifies the way that CMS calls BREXX for
+EXEC files identified as REXX programs.
+ 
+Affected Macros/Copy files :
+ 
+IO         Adds REXX call depth level number
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSEXC     simplifies call to BREXX.
+ 
+Description of change:
+ 
+This update changes the way that CMS calls BREXX for
+EXEC files identified as REXX programs. The old method
+copied and modied the argument list and then issued
+SVC 202 to routine DMSREX. This method does a direct
+branch into BREXX and does not modify the plists
+(except for one case). When an EXEC is called using
+IMPEX (IMPlied EXec), the extended plist in CMS has the
+command name field set to the EXEC program name, not
+the word 'EXEC'. The EXPLIST set changed in this case
+to make the program name the first argument and EXEC
+the command name.
+ 
+The update also resets the Halt Interpretation (HI),
+Trace Start (TS), and Trace End (TE) settings when
+the control is passed to the READY prompt.

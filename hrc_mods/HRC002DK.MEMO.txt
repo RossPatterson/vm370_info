@@ -1,0 +1,25 @@
+LOCAL MODIFICATION HRC002DK - WAS ISW00001
+ 
+Support for a 'POWEROFF' option to the CP SHUTDOWN command
+ 
+Affected Modules :
+ 
+DMKCPR ASSEMBLE
+DMKCKP ASSEMBLE
+PSA MACRO
+ 
+Description :
+When the SHUTDOWN Command is invoked, DMKCPR will now check for an additional
+POWEROFF option. If this is the case, a bit is set in PSA to indicate
+that DMKCKP should attempt a system POWER OFF upon shutdown.
+DMKCPR then invokes the RESTART procedure, re-entering DMKCKP
+DMKCKP Will then check for the bit set in the PSA. If the bit is set,
+then the NEW Program PSW is set to the wait state (in case the ensuing DIAG
+fails with a program interrupt and invokes DIAG 1F with Registers R1 and R2
+Set to the word POWEROFF. The POWER OFF request bit in PSA is reset.
+If the hardware is capable of doing a POWER OFF by itself, this will be done.
+If the hardware does not recognize diag 1F, then a program check will occur
+(most possibly a SPECIFICATION EXCEPTION).. in which case, the Shutdown
+wait state will be loaded via the program new PSW.
+If the POWEROFF request bit is not set in PSA, then no power off is
+attempted.

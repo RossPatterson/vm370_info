@@ -1,0 +1,35 @@
+LOCAL MODIFICATION HRC407DS
+ 
+This update implements support for the EXECTRAC option
+on the CMS SET command.
+ 
+  SET EXECTRAC ON
+ 
+    causes a REXX EXEC to execute as if 'trace ?a' had been
+    specified with the EXEC.
+ 
+  SET EXECTRAC OFF
+ 
+    causes REXX tracing to end.
+ 
+  QUERY EXECTRAC
+ 
+    displays the current EXECTRAC setting.
+ 
+ 
+The syntax and usage description of these commands
+are found in any set of VM manuals starting with VM/SP.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSQRY   HRC407DS  - Implements the QUERY EXECTRAC commmand.
+ 
+DMSSET   HRC407DS  - Implements the SET EXECTRAC command.
+ 
+Build any any command module files.
+ 
+   CMSGEND QUERY
+   CMSGEND SET
+ 
+Copy new MODULE files to the CMS System Disk with filemode 2.
+Resave the CMS saved segment.

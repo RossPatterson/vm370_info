@@ -1,0 +1,21 @@
+LOCAL MODIFICATION HRC019DK
+ 
+Additional CP SET commands
+ 
+Affected Modules :
+ 
+DMKCFC   ASSEMBLE
+DMKCPE   ASSEMBLE
+DMKCPI   ASSEMBLE
+DMKMID   ASSEMBLE
+DMKSYM   ASSEMBLE
+HDKCQU   ASSEMBLE
+PSA      MACRO
+QCPBLOK  COPY
+ 
+Description :
+Add support for QUERY MAXIMUM|PRIV|CPLEVEL commands.
+ 
+QUERY MAXimum : returns the maximum number of users allowed on.
+QUERY PRIV    : returns list of VM CLASSes current enabled.
+QUERY CPLEVEL : returns information regarding system IPL, version, etc.

@@ -1,0 +1,99 @@
+LOCAL MODIFICATION HRC105DS
+ 
+Extend FSTD / STATEFST for greater VM/SP compatibility
+ 
+Affected files:
+ 
+FSTD   MACRO  (CMSLIB MACLIB)
+FVS    MACRO  (CMSLIB MACLIB)
+ 
+Description:
+ 
+FSTD DSECT which is defined in FSTD MACRO defines the API for several file
+system calls including FSSTATE for example.
+ 
+This update extends FSTD to include the following fields:
+ 
+FSTADBC  - Alternate block count (fullword copy of halfword FSTDBC)
+FSTAIC   - Alternate item count (fullword copy of halfword FSTIC)
+FSTADATI - Alternate date and time (6 bytes - x'yymmddhhmmss')
+ 
+These fields can then be referenced when building software designed for
+versions of VM later than VM/370 Release 6 and the task of backporting such
+software is eased.
+ 
+While FSTADBC and FSTAIC are fullword quantities, their values are still
+restricted to those of halfword quantities because the FST table entries on
+800 byte block disks do not have any room to include the larger quantities.
+ 
+FSTADATI is an alternate format of the last written date and time in packed BCD.
+It is mostly built from pre-existing fields FSTYEARW and FSTDATEW, however, no
+value for the time in seconds is available in the 800 byte block FST so it is
+to an arbitrary constant value of 29.
+ 
+Internally to CMS, much use is made of STATEFST whose layout is defined by
+FVSECT DSECT in FVS MACRO. STATEFST is populated whenever a STATE or STATEW
+command or function is executed.
+ 
+FSTD DSECT must correspond with the first part of FVSECT but if FSTD is extended
+with new fields added at the end (as happens in this update and in later
+versions of CMS), the same fields must also be added to the middle of FVSECT
+because FVSECT is larger that FSTD. This causes the location of the last two
+fields in FVSECT to move.
+ 
+While this update also makes the required changes to FVSECT / STATEFST, a number
+of CMS components, including critically UPDATE (used by VMFASM and VMFMAC),
+reference the last two fields in STATEFST and must be rebuilt to take account of
+their movement.
+ 
+Any other software which makes use of these fields in FVSECT / STATEFST must
+also be rebuilt. If hardcoded constants (typically 40 and 44) are used instead
+of the symbolic offsets FVSFSTAD (alias STATER0) and FVSFSTAC (alias STATER1),
+these must also be fixed before rebuilding. Note however that software that
+assumes the on disk size of the FST on an 800 byte block disk to be 40 bytes
+will not require modification or rebuild.
+ 
+Prerequisites:
+ 
+HRC015DS must be installed before installing this update.
+ 
+Installation:
+ 
+CMSLIB MACLIB must be rebuilt.  The following modules must be reassembled:
+ 
+DMSABN
+DMSALU
+DMSBRD
+DMSCMP
+DMSDSK
+DMSERS
+DMSFNS
+DMSINT
+DMSLBM
+DMSMOD
+DMSNUC
+DMSPUN
+DMSRNM
+DMSSOP
+DMSSTT
+DMSUPD
+VMFDATE
+ 
+This can be done using ASM105DS EXEC. It is particularly important to ensure
+DMSLBM, DMSUPD and VMFDATE are all reassembled before ipling the newly generated
+nucleus because there will be difficulties using VMFMAC and/or VMFASM to do this
+after the new nucleus is brought into use and it will be difficult or impossible
+to generate new MACLIB, UPDATE and VMFDATE modules if the correct object files
+are not already available.
+ 
+The following modules must then be rebuilt using CMSGEND:
+ 
+COMPARE
+DISK
+MACLIB
+PUNCH
+RENAME
+UPDATE
+VMFDATE
+ 
+The CMS nucleus should then be rebuilt.

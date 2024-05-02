@@ -1,0 +1,34 @@
+LOCAL MODIFICATION HRC411DS
+ 
+This update implements support for an EXECIO command for VM/370.
+It implements an EXECIO command as described in:
+ 
+http://www.bitsavers.org/pdf/ibm/370/VM_SP/Release_5_Dec86/SC19-6209-4_VM_SP_CMS
+_Command_Reference_Release_5_Dec86.pdf
+ 
+The EXECIO command documented in that manual is the specification for
+this implementation. This EXECIO implementation contains no code from
+any IBM version. Using this command with BREXX requires that all CMS updates
+from the 'CMS Extensions for BREXX' folder in the FILES area of
+ 
+h390-vm@groups.io
+ 
+are applied to your VM/370 system, and that BREXX
+updates (already or soon to be) loaded on the FILES area are
+also running on your system. For example, the latest BREXX
+changes implement the EXECCOMM subcommand facility so that EXECIO
+can fetch or assign REXX variables.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSXIO (NEW)         implements the EXECIO command
+ 
+Description of change:
+ 
+See above.
+ 
+Generate the EXECIO MODULE with these steps and copy it to
+the CMS system disk with filemode 2.
+ 
+   LOAD DMSXIO ( CLEAR ORIGIN TRANS
+   GENMOD EXECIO MODULE A2

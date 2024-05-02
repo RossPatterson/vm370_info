@@ -1,0 +1,13 @@
+LOCAL MODIFICATION HRC408DS
+ 
+This update supports calling REXX external functions with
+a call type X'05' plist. When an EXEC is called with this
+plist, control is always passed to REXX, since the original
+EXEC processor does not support this call type. The eplist
+is not updated in any way but is passed to the REXX
+processor unmodified.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSEXC   HRC408DS  - Add logic to bypass eplist manipulation
+                     when the call type is X'05'

@@ -1,0 +1,163 @@
+LOCAL MODIFICATION HRC075DK
+ 
+Alternate CP nucleus support
+ 
+ 
+DMKCKP   ASSEMBLE
+DMKCKS   ASSEMBLE
+DMKCPI   ASSEMBLE
+DMKDMP   ASSEMBLE
+DMKHVE   ASSEMBLE
+DMKIOG   ASSEMBLE
+DMKWRM   ASSEMBLE
+HDKCQA   ASSEMBLE
+SYSRES   MACRO
+ 
+Description :
+Normally, VM/370 requires that the WARM, CKPT, and ERR areas of CP
+are located on the IPL volume.  This makes having an alternate CP
+nucleus difficult because another set of these areas must exist
+on the alternate volume.  Further, when you IPL the alternate nucleus
+all of your spool data is lost because those pointers are not in the
+alternate warm start and checkpoint areas.
+ 
+This support for an alternate CP nucleus provides for the specification
+of a specific volume location for the WARM, CKPT, and ERR areas.  Only
+a single copy of these areas is required, and they are no longer
+required to be on the IPL volume.  When CP is IPLed from an alternate
+location it will still use the WARM,CKPT, and ERR areas as specified
+by DMKSYS rather than implicitly on the IPL volume.  As long as
+all alternate CP nuclei use the same WARM, CKPT, and ERR locations
+in DMKSYS, your spool data is retained across alternate nucleus IPLs.
+ 
+In order to use this support, simply add a volume name to the SYSERR,
+SYSWRM, and SYSCKP operands of the SYSRES macro in DMKSYS.  For example,
+ 
+         SYSOWN VMTST1,VMTST2
+         SYSRES SYSVOL=VMTST1,SYSRES=1C8,....
+               SYSWRM=(045,5,VMTST2),
+               SYSERR=(024,2,VMTST2),
+               SYSCKP=(039,6,VMTST4)
+ 
+If no volume is specified, it will default to the IPL volume named in
+the SYSVOL operand.  This is an important distinction because IPLing
+an alternate nucleus would then expect WARM,CKPT, and ERR to be on that
+alternate volume.  A specific volume must be specified in order to
+ensure that that specified area location and volume is always used.
+ 
+There is no need that all of the WARM,CKPT, and ERR areas be on the
+same volume; they can be spread around.  Additionally, they can be
+on different device types other than that specified on the SYSTYPE=
+operand of SYSRES.
+ 
+After changing the SYSRES macro to specify a volume for SYSERR,SYSCKP,
+and SYSWRM, reassemble DMKSYS and build a CP nucleus as usual. If you
+intend to continue to use the existing areas on your current IPL volume,
+then specify the IPL volume name in SYSERR,SYSCKP, and SYSWRM, so that
+location will be fixed.  If you choose a different volume for these
+areas that is presently active in the running system, you will need
+to do a COLD start the first time you IPL.
+ 
+Any volume(s) that you select to contain the WARM, CKPT, or ERR areas
+as well as the alternate CP nucleus must be specified in the SYSOWN
+macro list of volumes.  If you are adding new volumes to SYSOWN,
+add them to the end, otherwise you will have to IPL cold on your
+next start up.
+ 
+Once the WARM,ERR, and CKPT areas are fixed on a specific volume as
+specified in their macro operands, all that is required to build an
+alternate nucleus is to modify the SYSVOL=, and SYSRES= operands to
+specify a new volume and unit address of where to build the new
+CP nucleus.  You may need to adjust the SYSNUC= parameter to different
+cylinder numbers as well depending on your space availability.  To
+reduce confusion and the opportunity for errors, it is recommended
+that you place the nucleus cylinders in exactly the same places on
+your alternate volumes.
+ 
+PLEASE REMEMBER: to format the cylinders that will be used to contain
+the alternate CP nucleus with the format/allocate program
+(IPL FMT S), before building your nucleus.
+ 
+================
+ 
+If you are using the VM/370 Community Edition Version 1 Release 1.2
+or later, then the system is already setup to support an alternate
+Nucleus location. Skip to the section on USING DEFINITIONS FOR THE
+VM/370 Community Edition.
+ 
+If you are using a different release, use following instructions:
+ 
+================
+ 
+SETTING UP THE ALTERNATE NUCLEUS SUPPORT SIMPLE EXAMPLE.
+ 
+After installing HRC075DK and rebuilding your nucleus and you are up
+and running, you now wish to initiate using alternate nuclei.  Assume
+your DMKSYS SYSRES macro currently looks like this:
+ 
+         SYSOWN VMPK01,VMPK03,VMPK06,VMPK07
+         SYSRES SYSVOL=VMPK01,SYSRES=141,SYSTYPE=3350,SYSNUC=(001,19),
+               SYSWRM=(045,2),
+               SYSERR=(024,2),
+               SYSCKP=(039,2)
+ 
+and you wish to create an alternate nucleus on unit 146, volume VMPK06.
+This example will use the existing WARM,CKPT, and ERR areas already
+defined and currently in use.
+ 
+First, check your SYSOWN list and see if you need to add VMPK06.
+Then, add your SYSVOL= name to the SYSWRM, SYSERR, and SYSCKP operands
+to specify their existing volume:
+ 
+               SYSWRM=(045,2,VMPK01),
+               SYSERR=(024,2,VMPK01),
+               SYSCKP=(039,2,VMPK01)
+ 
+Reassemble DMKSYS and rebuild the CP nucleus and re-ipl.  You
+can do a warm start because these areas were not physically moved.
+ 
+Then, if you wish to create an alternate nucleus on VMPK06, perhaps
+to be used as a 'rescue' nucleus, simply alter SYSRES parameters as
+shown:
+ 
+         SYSRES SYSVOL=VMPK06,SYSRES=146,SYSTYPE=3350,SYSNUC=(001,19),
+ 
+You may or may not need to alter SYSNUC= depending on your space
+availability on the target volume.  Do not change the SYSWRM, SYSERR,
+or SYSCKP values.  Then reassemble and build a CP nucleus; it will be
+written to volume VMPK06.
+ 
+Afterwards, you can IPL from either 141 or 146 as shown in this example
+as desired, and use a warm start and preserve your spool data.
+ 
+================================================
+ 
+USING DEFINITIONS FOR THE VM/370 Community Edition:
+ 
+The VM/370 Community Edition has been updated to reserve the disk
+space for an alternate Nucleus on volume VM50-3. The volume where
+the WarM start, Checkpoint, and Error reporting cylinders are
+located is already defined in DMKSYS ASSEMBLE:
+ 
+         SYSOWN (VM50-1,TEMP),(VM50-2,PAGE),(VM50-3,TEMP),(VM50-4,PAGE)
+         SYSRES SYSVOL=VM50-1,                                         X
+               SYSRES=6A1,                                             X
+               SYSTYPE=3350,                                           X
+               SYSNUC=(530,19),                                        X
+               SYSWRM=(551,2,VM50-1),                                  X
+               SYSERR=(549,2,VM50-1),                                  X
+               SYSCKP=(553,2,VM50-1)
+ 
+Then, if you wish to create an alternate nucleus, use the pre-defined
+area on volume VM50-3, by altering the parameters as shown:
+ 
+         SYSRES SYSVOL=VM50-3,                                         X
+               SYSRES=6A3,                                             X
+               SYSTYPE=3350,                                           X
+               SYSNUC=(530,19),                                        X
+               SYSWRM=(551,2,VM50-1),                                  X
+               SYSERR=(549,2,VM50-1),                                  X
+               SYSCKP=(553,2,VM50-1)
+ 
+Assemble DMKSYS, and then rebuild the CP system with VMFLOAD, and the
+alternate Nucleus will be written on the VM50-3 volume.

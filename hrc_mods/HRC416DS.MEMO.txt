@@ -1,0 +1,43 @@
+LOCAL MODIFICATION HRC416DS
+ 
+Add support for the CMS IDENTIFY command to VM/370.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSIDE   ASSEMBLE (NEW) - Implements the IDENTIFY command
+DMSFNC   HRC416DS       - Defines the entry point for IDENTIFY
+DMSINA   HRC416DS       - Defines valid abbreviations for IDENTIFY
+ 
+Description of change:
+ 
+The IDENTIFY command is used to display or stack the following
+information: current user ID and node, the userID of the RSCS
+server, and the date, time, time zone, and day of the week.
+The syntax is:
+ 
+ 
+ 
+>>-IDentify--+------------------------+-----------------><
+             |                        |
+             '-(---| Options |--+---+-'
+                                '-)-'
+Options:
+ 
+|--+-----------------+--|
+   |        .-FIFO-. |
+   +-STACK--+------+-+
+   |        '-LIFO-' |
+   +-FIFO------------+
+   '-LIFO------------'
+ 
+Example:
+ 
+   identify
+   MAINT    AT VM370CE  VIA RSCS     06:53:38 02/11/21 EST     THURSDAY
+   Ready;
+ 
+The SYSTEM NETID on the CMS System disk supplies values for the result.
+The format for the SYSTEM NETID file is:
+ 
+*CPUID NODEID   NETID
+098052 VM370CE  RSCS

@@ -1,0 +1,23 @@
+LOCAL MODIFICATION HRC010DS
+ 
+Update alters the ACCESS command processing of R/O minidisks.
+Empty R/O disk will be accessed now. Specifying and option of MODE0
+will allow the MODE0 files to be displayed.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSACC
+DMSACF
+DMSALU
+ 
+Affected Macros/Copy files :
+ 
+ADT      MACRO
+ 
+Description of change:
+ 
+ ACCESS 192 D ( MODE0
+ 
+is the command format.
+ 
+ 

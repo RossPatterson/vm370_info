@@ -1,0 +1,24 @@
+LOCAL MODIFICATION HRC003DK - WAS ISW00002
+ 
+Support for a 'LEAVE' option to the CLASS B CP DETACH Command
+ 
+NEW COMMAND SYNTAX (Class B) :
+CP DETACH [CUU] <FROM> [USERID] <LEAVE>
+NEW ERROR MESSAGE :
+DMKVDD003E INVALID OPTION : XXX
+ 
+Affected Modules :
+ 
+DMKVDC ASSEMBLE
+DMKVDD ASSEMBLE
+DMKVDR ASSEMBLE
+VBLOKS COPY
+ 
+Description :
+When DMKVDD invokes DMKVDCSN, DMKVDCSN will check for a 'LEAVE' option on the
+Class B Variant of the detach command. If it is present, a VDD bit is set to
+indicate the option was specified.
+DMKVDD will then invoke DMKVDREL for each affected VDEV. If the LEAVE option
+was specified and the VDEV is a tape, then a bit is set in the VDEVBLOK to
+request VDREL not to issue a RUN CCW on the real tape. VDREL will just skip
+the issuing of the RUN CCW when the bit is set.

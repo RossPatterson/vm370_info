@@ -1,0 +1,17 @@
+LOCAL MODIFICATION HRC012DS
+ 
+Update adds +, -, _ and : to the list of valid characters in a
+filename or filetype.
+ 
+Affected Modules : (FT ASSEMBLE)
+ 
+DMSBWR
+ 
+Affected Macros/Copy files :
+ 
+NONE
+ 
+Description of change:
+ 
+ 
+ 

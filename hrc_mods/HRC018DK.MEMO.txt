@@ -1,0 +1,18 @@
+LOCAL MODIFICATION HRC018DK
+ 
+Additional CP SET commands
+ 
+Affected Modules :
+ 
+DMKCFO   ASSEMBLE
+DMKCFS   ASSEMBLE
+DMKLOG   ASSEMBLE
+DMKCFC   ASSEMBLE
+VMBLOK   COPY
+ 
+Description :
+Add support for SET MAX and SET PRIV commands.
+ 
+SET MAX nn : where nn is the maximum of users allowed on the machine
+SET PRIV ccc ON|OFF : turns ON and OFF VM CLASS that you already
+                      owned via directory.
